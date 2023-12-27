@@ -1,6 +1,6 @@
 var nameError = document.getElementById('name-error')
 var phoneError = document.getElementById('phone-error')
-var mailError = document.getElementById('mail-error')
+var emailError = document.getElementById('mail-error')
 var submitError = document.getElementById('submit-error')
 var messageError = document.getElementById('message-error')
 
@@ -21,11 +21,11 @@ function validateName(){
 function validatePhone(){
     var phone = document.getElementById('contact-phone').value;
     if(phone.length == 0){
-        phoneError.innerHTML = 'Phone number is required';
+        phoneError.innerHTML = 'Phone no is required';
         return false;
     }
     if(phone.length  !== 10){
-        phoneError.innerHTML = 'Phone number should be 10 digits';
+        phoneError.innerHTML = 'Phone no should be 10 digits';
         return false;
     }
     if(!phone.match(/^[0-9]{10}$/)){
@@ -36,5 +36,45 @@ function validatePhone(){
     return true;
 }
 
+function validateEmail(){
+    var email = document.getElementById('contact-email').value;
+    if(email.length == 0){
+        emailError.innerHTML = 'Email is required';
+        return false;
+    }
+    if(!email.match(/^[A-Za-z\._\-[0-9]*[@][A-Za-z]*[\.][a-z]{2,4}$/)){
+        emailError.innerHTML = 'Invalid Email';
+        return false;
+    }
+    emailError.innerHTML = '<i class="fa-solid fa-circle-check" style="color: green;"></i>';
+    return true;
+}
 
+
+
+function validateMessage(){
+    var messsage = document.getElementById('contact-message').value;
+    var required = 30;
+    var left = required-messsage.length;
+
+    if(left>0){
+        messageError.innerHTML = left + ' more characters needed';
+        return false;
+    }
+    if(left>0){
+        messageError.innerHTML = left + 'More characters needed';
+        return false;
+    }
+    messageError.innerHTML = '<i class="fa-solid fa-circle-check" style="color: green;"></i>';
+    return true;
+}
+
+function validateForm(){
+    if(!validateName() || !validateEmail() || !validatePhone() || !validateMessage()){
+        submitError.style.display = 'block';
+        submitError.innerHTML = 'Please fix the above errors';
+        setTimeout(function(){submitError.style.display = 'none';},3000);
+        return false;
+    }
+}
 
